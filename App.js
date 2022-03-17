@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Hello World!</Text>
+      <Text style={{ fontWeight: 'bold' }}> Hello World!</Text>
       <StatusBar style="auto" />
 
         <View style={{marginTop:10}}>
