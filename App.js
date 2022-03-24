@@ -14,6 +14,7 @@ const theme = {
 
 export default function App() {
   const [checked, setChecked] = React.useState(false, 'first');
+  const [checked2, setChecked2] = React.useState(false);
   return (
     <PaperProvider theme={theme}>
 
@@ -43,7 +44,7 @@ export default function App() {
         <View style={{flex:1}}>
           <Checkbox
             status={checked ? 'checked' : 'unchecked'}
-          onPress={() => {setChecked(!checked);}}
+            onPress={() => {setChecked(!checked);}}
         />
       </View>
       </View>
@@ -54,8 +55,8 @@ export default function App() {
         </View>
         <View style={{flex:1}}>
           <Checkbox
-            status={checked ? 'checked' : 'unchecked'}
-            onPress={() => {setChecked(!checked);}}
+            status={checked2 ? 'checked' : 'unchecked'}
+            onPress={() => {setChecked2(!checked2);}}
           />
       </View>
       </View>
