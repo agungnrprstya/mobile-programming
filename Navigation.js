@@ -11,13 +11,14 @@ import SettingScreen from './screen/SettingScreen';
 import BukuScreen from './screen/BukuScreen';
 
 const Stack = createNativeStackNavigator();
-const Tab = createMaterialBottomTabNavigator();
+const BottomTab = createMaterialBottomTabNavigator();
+// const TopTab = createMaterialTopTabNavigator();
 
 function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="HomeScreen" component={BottomTab} />
+        <Stack.Screen name="HomeScreen" component={Tab} />
         <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
         <Stack.Screen name="KategoriTambahScreen" component={KategoriTambahScreen} />
         <Stack.Screen name="KategoriUbahScreen" component={KategoriUbahScreen} />
@@ -28,13 +29,13 @@ function Navigation() {
   );
 }
 
-function BottomTab() {
+function Tab() {
   return (
-    <Tab.Navigator
+    <BottomTab.Navigator
       activeColor="white"
-      barStyle={{ backgroundColor: 'blue' }}
+      barStyle={{ backgroundColor: '#B22222' }}
     >
-      <Tab.Screen
+      <BottomTab.Screen
         name="HomeTab"
         component={HomeScreen}
         options={{
@@ -44,7 +45,7 @@ function BottomTab() {
           ),
         }}
       />
-      <Tab.Screen
+      <BottomTab.Screen
         name="KategoriTab"
         component={KategoriScreen}
         options={{
@@ -54,7 +55,7 @@ function BottomTab() {
           ),
         }}
       />
-      <Tab.Screen
+      <BottomTab.Screen
         name="SettingTab"
         component={SettingScreen}
         options={{
@@ -65,7 +66,7 @@ function BottomTab() {
         }}
       />
 
-      <Tab.Screen
+      <BottomTab.Screen
         name="BukuTab"
         component={BukuScreen}
         options={{
@@ -75,7 +76,7 @@ function BottomTab() {
           ),
         }}
       />
-    </Tab.Navigator>
+    </BottomTab.Navigator>
   );
 }
 
