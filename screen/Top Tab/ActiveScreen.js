@@ -5,7 +5,7 @@ import { Text, View} from 'react-native'
 function ActiveScreen({navigation}) {
     return (
         <View>
-            <Text style={{textAlign:"center", fontSize:50, paddingTop:200}}>Active Screen</Text>
+            <Text style={{textAlign:"center", fontSize:50, paddingTop:200}}>Active</Text>
         </View>
     );
 }
