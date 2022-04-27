@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Appbar, List, Button} from 'react-native-paper';
+import supabase from '../supabase';
 
 function BukuScreen({navigation}) {
+  const [nama, setNama] = useState('');
+  const [stok, setStok] = useState('');
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async() => {
+    //data : hasil query, error : pesan error
+    const { data, error } = await supabase
+                              .from('Buku')
+                              .select('nama, stok');
+                              
+    console.log('data', data);
+    console.log('error', error);
+    setNama(data[0].nama)
+    setStok(data[0].stok)
+  }
+
   return (
     <>
       <Appbar.Header>
@@ -9,7 +29,8 @@ function BukuScreen({navigation}) {
       </Appbar.Header>
 
       <List.Item
-        title="Nama"
+        title={nama}
+        description={stok}
         left={props => <List.Icon {...props} icon="book" />}
         right={props => <List.Icon {...props} icon="pencil" />}
         onPress={() => navigation.navigate('KategoriUbahScreen')}
@@ -23,8 +44,7 @@ function BukuScreen({navigation}) {
       >
         Tambah Kategori
       </Button>
-    </>
-    
+    </>  
   );
 }
 
