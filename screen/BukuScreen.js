@@ -3,7 +3,7 @@ import { Appbar, List, Button} from 'react-native-paper';
 import supabase from '../supabase';
 
 function BukuScreen({navigation}) {
-  const [nama, setNama] = useState('');
+  const [nimi, setNama] = useState('');
   const [stok, setStok] = useState('');
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function BukuScreen({navigation}) {
       </Appbar.Header>
 
       <List.Item
-        title={nama}
+        title={nimi}
         description={stok}
         left={props => <List.Icon {...props} icon="book" />}
         right={props => <List.Icon {...props} icon="pencil" />}
