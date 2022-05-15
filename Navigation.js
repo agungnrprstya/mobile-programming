@@ -19,11 +19,11 @@ function Navigation() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
         <Stack.Screen name="HomeScreen" component={Tab} />
-        {/* <Stack.Screen name="KategoriScreen" component={KategoriScreen} /> */}
+        <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
         <Stack.Screen name="KategoriTambahScreen" component={KategoriTambahScreen} />
         <Stack.Screen name="KategoriUbahScreen" component={KategoriUbahScreen} />
-        {/* <Stack.Screen name="SettingScreen" component={SettingScreen} /> */}
-        {/* <Stack.Screen name="BukuScreen" component={BukuScreen} /> */}
+        <Stack.Screen name="SettingScreen" component={SettingScreen} /> 
+        <Stack.Screen name="BukuScreen" component={BukuScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
