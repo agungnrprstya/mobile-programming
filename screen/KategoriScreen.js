@@ -5,7 +5,11 @@ import supabase from '../supabase';
 
 function KategoriScreen({navigation}) {
   const [data, setData] = useState([]);
-  
+  const setIcon = (status) => {
+    var Icon = (!status) ? "close":"check";
+    return Icon;
+  }
+
   //script dijalankan ketika screen diakses
   useEffect(() => {
     getData();
@@ -17,6 +21,7 @@ function KategoriScreen({navigation}) {
                               .from('Kategori')
                               .select('nama, penerbit, status')
                               .order('nama', {ascending:false});
+    // console.log(error)
     setData(data);
   }
 
@@ -34,7 +39,9 @@ function KategoriScreen({navigation}) {
                   key={index}
                   title={item.nama}
                   description={item.penerbit}
-                  left={props => <List.Icon {...props} icon="folder" />}
+                  left={props => <List.Icon {...props} 
+                                    icon={setIcon(item.status)}
+                                  />}
                   right={props => <List.Icon {...props} icon="pencil" />}
                   onPress={() => navigation.navigate('KategoriUbahScreen', {id: item.id})}
                 />
