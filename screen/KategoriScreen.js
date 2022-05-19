@@ -19,7 +19,7 @@ function KategoriScreen({navigation}) {
     //data : hasil query, error : pesan error
     const { data, error } = await supabase
                               .from('Kategori')
-                              .select('nama, penerbit, status')
+                              .select('id, nama, penerbit, status')
                               .order('nama', {ascending:false});
     // console.log(error)
     setData(data);
