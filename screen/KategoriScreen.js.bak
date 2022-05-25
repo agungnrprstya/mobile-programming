@@ -3,15 +3,11 @@ import { FlatList } from 'react-native';
 import { Appbar, Button, List } from 'react-native-paper';
 import supabase from '../supabase';
 
-import * as Print from 'expo-print';
-import { shareAsync } from 'expo-sharing';
-
 function KategoriScreen({navigation}) {
-  //state data : default array (karena untuk menyimpan banyak data)
   const [data, setData] = useState([]);
-  const statusIcon = (status) => {
-    var getIcon = (!status) ? "close":"check";
-    return getIcon;
+  const setIcon = (status) => {
+    var Icon = (!status) ? "close":"check";
+    return Icon;
   }
 
   //script dijalankan ketika screen diakses
@@ -24,33 +20,15 @@ function KategoriScreen({navigation}) {
     const { data, error } = await supabase
                               .from('Kategori')
                               .select('id, nama, penerbit, status')
-                              .order('id', {ascending:false});
-    //mengisi state data
+                              .order('nama', {ascending:false});
+    // console.log(error)
     setData(data);
-  }
-
-  const onPrint = async(data) => {
-    //file content
-    let html = `<ul>`;
-                data.map((item) => {
-                  html += `<li>`+item.nama+ ` (` + (item.status ? 'Aktif' : 'Tidak Aktif') + `)` + `<br>Penerbit : ` + item.penerbit + `</li>`;
-                })
-        html += `</ul>`;
-
-    //print file
-    const { uri } = await Print.printToFileAsync({
-      html
-    });
-
-    //share file
-    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
   }
 
   return (
     <>
         <Appbar.Header>
-          <Appbar.Content title="Kategori" />
-          <Appbar.Action icon="printer" onPress={() => onPrint(data)} />
+            <Appbar.Content title="Kategori" />
         </Appbar.Header>
 
         <FlatList
@@ -62,9 +40,8 @@ function KategoriScreen({navigation}) {
                   title={item.nama}
                   description={item.penerbit}
                   left={props => <List.Icon {...props} 
-                                    icon={statusIcon(item.status)}
+                                    icon={setIcon(item.status)}
                                   />}
-                  // left={props => <List.Icon {...props} icon="folder" />}
                   right={props => <List.Icon {...props} icon="pencil" />}
                   onPress={() => navigation.navigate('KategoriUbahScreen', {id: item.id})}
                 />
