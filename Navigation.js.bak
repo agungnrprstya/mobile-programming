@@ -1,44 +1,41 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator();
-
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-const Tab = createMaterialBottomTabNavigator();
+// import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import HomeScreen from './screen/HomeScreen';
 import KategoriScreen from './screen/KategoriScreen';
 import KategoriTambahScreen from './screen/KategoriTambahScreen';
 import KategoriUbahScreen from './screen/KategoriUbahScreen';
 import SettingScreen from './screen/SettingScreen';
-
 import BukuScreen from './screen/BukuScreen';
-import BukuTambahScreen from './screen/BukuTambahScreen';
+
+const Stack = createNativeStackNavigator();
+const BottomTab = createMaterialBottomTabNavigator();
 
 function Navigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown:false}}>
-        <Stack.Screen name="HomeScreen" component={NavigationTab} />
+        <Stack.Screen name="HomeScreen" component={Tab} />
         <Stack.Screen name="KategoriScreen" component={KategoriScreen} />
         <Stack.Screen name="KategoriTambahScreen" component={KategoriTambahScreen} />
         <Stack.Screen name="KategoriUbahScreen" component={KategoriUbahScreen} />
-        <Stack.Screen name="SettingScreen" component={SettingScreen} />
+        <Stack.Screen name="SettingScreen" component={SettingScreen} /> 
         <Stack.Screen name="BukuScreen" component={BukuScreen} />
-        <Stack.Screen name="BukuTambahScreen" component={BukuTambahScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-function NavigationTab() {
+function Tab() {
   return (
-    <Tab.Navigator
+    <BottomTab.Navigator
       activeColor="white"
-      barStyle={{ backgroundColor: 'blue' }}
+      barStyle={{ backgroundColor: '#B22222' }}
     >
-      <Tab.Screen
+      <BottomTab.Screen
         name="HomeTab"
         component={HomeScreen}
         options={{
@@ -48,27 +45,17 @@ function NavigationTab() {
           ),
         }}
       />
-      <Tab.Screen
+      <BottomTab.Screen
         name="KategoriTab"
         component={KategoriScreen}
         options={{
-          tabBarLabel: 'Kategori',
+          tabBarLabel: 'Kategori Buku',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="book" color={color} size={26} />
+            <MaterialCommunityIcons name="folder" color={color} size={26} />
           ),
         }}
       />
-      <Tab.Screen
-        name="BukuTab"
-        component={BukuScreen}
-        options={{
-          tabBarLabel: 'Buku',
-          tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="file" color={color} size={26} />
-          ),
-        }}
-      />
-      <Tab.Screen
+      <BottomTab.Screen
         name="SettingTab"
         component={SettingScreen}
         options={{
@@ -78,7 +65,18 @@ function NavigationTab() {
           ),
         }}
       />
-    </Tab.Navigator>
+
+      <BottomTab.Screen
+        name="BukuTab"
+        component={BukuScreen}
+        options={{
+          tabBarLabel: 'Buku',
+          tabBarIcon: ({ color }) => (
+            <MaterialCommunityIcons name="book" color={color} size={26} />
+          ),
+        }}
+      />
+    </BottomTab.Navigator>
   );
 }
 
