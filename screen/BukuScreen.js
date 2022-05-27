@@ -1,50 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import { Appbar, List, Button} from 'react-native-paper';
+import { FlatList } from 'react-native';
+import { Appbar, Button, List, Searchbar } from 'react-native-paper';
 import supabase from '../supabase';
 
 function BukuScreen({navigation}) {
-  const [nimi, setNama] = useState('');
-  const [stok, setStok] = useState('');
+  const [data, setData] = useState([]);
+  const [searchText, setSearchText] = React.useState('');
 
+  //script dijalankan ketika screen diakses
   useEffect(() => {
     getData();
-  }, []);
+
+  // data, searchText : jika ada perubahan pada 2 state ini, akan memanggil getData
+  }, [data, searchText]);
 
   const getData = async() => {
-    //data : hasil query, error : pesan error
-    const { data, error } = await supabase
-                              .from('Buku')
-                              .select('nama, stok');
-                              
-    console.log('data', data);
-    console.log('error', error);
-    setNama(data[0].nama)
-    setStok(data[0].stok)
+    //query awal
+    let query = supabase
+                  .from('buku')
+                  .select('id, judul, kategori!inner(nama)')
+                  .order('id', {ascending:false});
+
+    //filter query jika ada search
+    if (searchText != '') { 
+      query = query.ilike('judul', '%'+searchText+'%') }
+    
+    //jalankan query
+    const { data, error } = await query;
+    setData(data);
   }
 
   return (
     <>
-      <Appbar.Header>
-        <Appbar.Content title="Buku" />
-      </Appbar.Header>
+        <Appbar.Header>
+            <Appbar.Content title="Buku" />
+        </Appbar.Header>
 
-      <List.Item
-        title={nimi}
-        description={stok}
-        left={props => <List.Icon {...props} icon="book" />}
-        right={props => <List.Icon {...props} icon="pencil" />}
-        onPress={() => navigation.navigate('KategoriUbahScreen')}
-      />
-      
-      <Button 
-        icon="plus" 
-        mode="contained" 
-        onPress={() => navigation.navigate('KategoriTambahScreen')}
-        style={{margin:10}}
-      >
-        Tambah Kategori
-      </Button>
-    </>  
+        <Searchbar
+          placeholder="Cari judul"
+          onChangeText={(text) => setSearchText(text)}
+          value={searchText}
+        />
+        
+        <FlatList
+            data={data}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => (
+                <List.Item
+                  key={index}
+                  title={item.judul}
+                  description={item.kategori.nama}
+                  left={props => <List.Icon {...props} icon="book" />}
+                  right={props => <List.Icon {...props} icon="pencil" />}
+                  onPress={() => navigation.navigate('BukuUbahScreen', {id: item.id})}
+                />
+              )}
+        />
+
+        <Button 
+            icon="plus" 
+            mode="contained" 
+            onPress={() => navigation.navigate('BukuTambahScreen')}
+            style={{margin:10}}
+        >
+          Tambah Buku
+        </Button>
+    </>
   );
 }
 
