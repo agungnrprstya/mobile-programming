@@ -32,7 +32,6 @@ function BukuTambahScreen({navigation}) {
                                 judul: judul,
                                 kategori_id: kategori_id,
                               });
-
     Alert.alert("Pesan", "Data berhasil disimpan");
     navigation.goBack();
   }
@@ -48,6 +47,7 @@ function BukuTambahScreen({navigation}) {
         selectedValue={kategori_id}
         onValueChange={(value) => setKategori(value)}
       >
+        <Picker.Item label="Pilih" value="" />
         {dataPicker.map((row) => 
           <Picker.Item label={row.nama} value={row.id} />
         )}
