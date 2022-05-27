@@ -12,7 +12,6 @@ import KategoriScreen from './screen/KategoriScreen';
 import KategoriTambahScreen from './screen/KategoriTambahScreen';
 import KategoriUbahScreen from './screen/KategoriUbahScreen';
 import SettingScreen from './screen/SettingScreen';
-
 import BukuScreen from './screen/BukuScreen';
 import BukuTambahScreen from './screen/BukuTambahScreen';
 
@@ -36,7 +35,7 @@ function NavigationTab() {
   return (
     <Tab.Navigator
       activeColor="white"
-      barStyle={{ backgroundColor: 'blue' }}
+      barStyle={{ backgroundColor: '#B22222' }}
     >
       <Tab.Screen
         name="HomeTab"

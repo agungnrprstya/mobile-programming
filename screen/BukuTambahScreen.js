@@ -19,7 +19,7 @@ function BukuTambahScreen({navigation}) {
   //list data picker
   const getKategori = async() => {
     const { data, error } = await supabase
-                              .from('kategori')
+                              .from('Kategori')
                               .select('id, nama')
                               .order('nama', {ascending:true});
     setDataPicker(data);
